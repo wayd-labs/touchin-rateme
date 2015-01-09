@@ -1,0 +1,78 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		73F7E50A1A5FD89B00811D3F /* touchin-rateme.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "touchin-rateme.podspec"; sourceTree = "<group>"; };
+		73F7E50B1A5FD89B00811D3F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		73F7E50C1A5FD98200811D3F /* TITableDataSourceWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TITableDataSourceWrapper.h; path = Pod/Classes/TITableDataSourceWrapper.h; sourceTree = "<group>"; };
+		73F7E50D1A5FD98200811D3F /* TITableDataSourceWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TITableDataSourceWrapper.m; path = Pod/Classes/TITableDataSourceWrapper.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		7374A7EA1A5FD84500355155 = {
+			isa = PBXGroup;
+			children = (
+				73F7E50C1A5FD98200811D3F /* TITableDataSourceWrapper.h */,
+				73F7E50D1A5FD98200811D3F /* TITableDataSourceWrapper.m */,
+				73F7E50A1A5FD89B00811D3F /* touchin-rateme.podspec */,
+				73F7E50B1A5FD89B00811D3F /* README.md */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		7374A7EB1A5FD84500355155 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+			};
+			buildConfigurationList = 7374A7EE1A5FD84500355155 /* Build configuration list for PBXProject "touchin-rateme" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7374A7EA1A5FD84500355155;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		7374A7EF1A5FD84500355155 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		7374A7F01A5FD84500355155 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7374A7EE1A5FD84500355155 /* Build configuration list for PBXProject "touchin-rateme" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7374A7EF1A5FD84500355155 /* Debug */,
+				7374A7F01A5FD84500355155 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7374A7EB1A5FD84500355155 /* Project object */;
+}
