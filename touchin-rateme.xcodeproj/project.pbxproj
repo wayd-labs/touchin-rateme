@@ -9,19 +9,46 @@
 /* Begin PBXFileReference section */
 		73F7E50A1A5FD89B00811D3F /* touchin-rateme.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "touchin-rateme.podspec"; sourceTree = "<group>"; };
 		73F7E50B1A5FD89B00811D3F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		73F7E50C1A5FD98200811D3F /* TITableDataSourceWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TITableDataSourceWrapper.h; path = Pod/Classes/TITableDataSourceWrapper.h; sourceTree = "<group>"; };
-		73F7E50D1A5FD98200811D3F /* TITableDataSourceWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TITableDataSourceWrapper.m; path = Pod/Classes/TITableDataSourceWrapper.m; sourceTree = "<group>"; };
+		73F7E5121A5FDFE700811D3F /* TITableDataSourceWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TITableDataSourceWrapper.h; sourceTree = "<group>"; };
+		73F7E5131A5FDFE700811D3F /* TITableDataSourceWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TITableDataSourceWrapper.m; sourceTree = "<group>"; };
+		73F7E5161A6033F000811D3F /* TIRateMeCellTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TIRateMeCellTableViewCell.h; sourceTree = "<group>"; };
+		73F7E5171A6033F000811D3F /* TIRateMeCellTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TIRateMeCellTableViewCell.m; sourceTree = "<group>"; };
+		73F7E51B1A603D2700811D3F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TIRateMe.strings; sourceTree = "<group>"; };
+		73F7E51D1A603DF300811D3F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/TIRateMe.strings; sourceTree = "<group>"; };
+		73F7E51E1A603E2B00811D3F /* TIRateMeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TIRateMeCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		7374A7EA1A5FD84500355155 = {
 			isa = PBXGroup;
 			children = (
-				73F7E50C1A5FD98200811D3F /* TITableDataSourceWrapper.h */,
-				73F7E50D1A5FD98200811D3F /* TITableDataSourceWrapper.m */,
+				73F7E5141A5FE02E00811D3F /* Assets */,
+				73F7E5111A5FDFE700811D3F /* Classes */,
 				73F7E50A1A5FD89B00811D3F /* touchin-rateme.podspec */,
 				73F7E50B1A5FD89B00811D3F /* README.md */,
 			);
+			sourceTree = "<group>";
+		};
+		73F7E5111A5FDFE700811D3F /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				73F7E5121A5FDFE700811D3F /* TITableDataSourceWrapper.h */,
+				73F7E5131A5FDFE700811D3F /* TITableDataSourceWrapper.m */,
+				73F7E5161A6033F000811D3F /* TIRateMeCellTableViewCell.h */,
+				73F7E5171A6033F000811D3F /* TIRateMeCellTableViewCell.m */,
+			);
+			name = Classes;
+			path = Pod/Classes;
+			sourceTree = "<group>";
+		};
+		73F7E5141A5FE02E00811D3F /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				73F7E51E1A603E2B00811D3F /* TIRateMeCell.xib */,
+				73F7E51C1A603D2700811D3F /* TIRateMe.strings */,
+			);
+			name = Assets;
+			path = Pod/Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -38,6 +65,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ru,
 			);
 			mainGroup = 7374A7EA1A5FD84500355155;
 			projectDirPath = "";
@@ -46,6 +74,18 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXVariantGroup section */
+		73F7E51C1A603D2700811D3F /* TIRateMe.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				73F7E51B1A603D2700811D3F /* en */,
+				73F7E51D1A603DF300811D3F /* ru */,
+			);
+			name = TIRateMe.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		7374A7EF1A5FD84500355155 /* Debug */ = {

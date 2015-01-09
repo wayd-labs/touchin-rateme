@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TITableDataSourceWrapper : NSObject<UITableViewDataSource>
+@interface TITableDataSourceWrapper : NSObject<UITableViewDataSource, UITableViewDelegate>
+
+@property (weak, readonly) id<UITableViewDataSource> wrappedDataSource;
+@property (weak, readonly) id<UITableViewDelegate> wrappedDelegate;
+
+- (TITableDataSourceWrapper*) initWithDataSource:(id<UITableViewDataSource>) dataSource delegate:(id<UITableViewDelegate>) delegate;
 
 @end
