@@ -47,18 +47,18 @@ NSString* UD_STAGE_KEY = @"TIRateMeCellStage";
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"TIRateMe" ofType:@"bundle"];
     NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
     if (stage == TIRateMeCellStageLike) {
-        self.yesButton.titleLabel.text = [bundle localizedStringForKey:@"Like-Yes" value:@"" table:nil];
-        self.noButton.titleLabel.text = [bundle localizedStringForKey:@"Like-No" value:@"" table:nil];
+        [self.yesButton setTitle:[bundle localizedStringForKey:@"Like-Yes" value:@"" table:nil] forState:UIControlStateNormal];
+        [self.noButton setTitle:[bundle localizedStringForKey:@"Like-No" value:@"" table:nil] forState:UIControlStateNormal];
         self.questionLabel.text = [bundle localizedStringForKey:@"Like-Question" value:@"" table:nil];
     }
     if (stage == TIRateMeCellStageAppStore) {
-        self.yesButton.titleLabel.text = [bundle localizedStringForKey:@"AppStore-Yes" value:@"" table:nil];
-        self.noButton.titleLabel.text = [bundle localizedStringForKey:@"AppStore-No" value:@"" table:nil];
+        [self.yesButton setTitle:[bundle localizedStringForKey:@"AppStore-Yes" value:@"" table:nil] forState:UIControlStateNormal];
+        [self.noButton setTitle:[bundle localizedStringForKey:@"AppStore-No" value:@"" table:nil] forState:UIControlStateNormal];
         self.questionLabel.text = [bundle localizedStringForKey:@"AppStore-Question" value:@"" table:nil];
     }
     if (stage == TIRateMeCellStageReview) {
-        self.yesButton.titleLabel.text = [bundle localizedStringForKey:@"Review-Yes" value:@"" table:nil];
-        self.noButton.titleLabel.text = [bundle localizedStringForKey:@"Review-No" value:@"" table:nil];
+        [self.yesButton setTitle:[bundle localizedStringForKey:@"Review-Yes" value:@"" table:nil] forState:UIControlStateNormal];
+        [self.noButton setTitle:[bundle localizedStringForKey:@"Review-No" value:@"" table:nil] forState:UIControlStateNormal];
         self.questionLabel.text = [bundle localizedStringForKey:@"Review-Question" value:@"" table:nil];
     }
 }
@@ -66,12 +66,16 @@ NSString* UD_STAGE_KEY = @"TIRateMeCellStage";
 - (void) yesButtonTap {
     if (self.getStage == TIRateMeCellStageLike) {
         [self setUpStage:TIRateMeCellStageAppStore];
+    } else {
+        [self.delegate finished];
     }
 }
 
 - (void) noButtonTap {
     if (self.getStage == TIRateMeCellStageLike) {
         [self setUpStage:TIRateMeCellStageReview];
+    } else {
+        [self.delegate finished];
     }
 }
 

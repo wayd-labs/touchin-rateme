@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TIRateMeTableWrapper.h"
 
 @interface TIRateMeCellTableViewCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UIButton *yesButton;
 @property (weak, nonatomic) IBOutlet UIButton *noButton;
 @property (weak, nonatomic) IBOutlet UILabel *questionLabel;
+
+@property (weak) id<TIRateMeDelegate> delegate;
 
 @end

@@ -31,7 +31,7 @@ Pod::Spec.new do |s|
   s.source_files = 'Pod/Classes'
 #  s.resources = 'Pod/Assets'
   s.resource_bundles = {
-    'TIRateMe' => ['Pod/Assets/TIRateMeCell.xib', 'Pod/Assets/*.lpoj/*']
+    'TIRateMe' => ['Pod/Assets/TIRateMeCell.xib', 'Pod/Assets/*.lproj/*']
   }
 
   s.frameworks = 'UIKit'
