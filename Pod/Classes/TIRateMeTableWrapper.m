@@ -59,6 +59,7 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
         TIRateMeCellTableViewCell* cell = [topLevelObjects objectAtIndex:0];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
+        cell.appstoreURL = self.appstoreURL;
 
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:1] forKey:UD_SHOWN_KEY];
         

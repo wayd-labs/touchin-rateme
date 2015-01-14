@@ -10,14 +10,14 @@
 	<string>touchin-rateme</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>C47C7228FA748EB8BDF4D5F399F4825A6BE33EA2</key>
+		<key>07B49BBE07C62E3C10EFB265F7ACA656EB3A4CF8</key>
 		<string>https://github.com/TouchInstinct/touchin-analytics.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>touchin-rateme.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>C47C7228FA748EB8BDF4D5F399F4825A6BE33EA2</key>
+		<key>07B49BBE07C62E3C10EFB265F7ACA656EB3A4CF8</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>C47C7228FA748EB8BDF4D5F399F4825A6BE33EA2</string>
+	<string>07B49BBE07C62E3C10EFB265F7ACA656EB3A4CF8</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>C47C7228FA748EB8BDF4D5F399F4825A6BE33EA2</string>
+			<string>07B49BBE07C62E3C10EFB265F7ACA656EB3A4CF8</string>
 			<key>IDESourceControlWCCName</key>
 			<string>touchin-rateme</string>
 		</dict>

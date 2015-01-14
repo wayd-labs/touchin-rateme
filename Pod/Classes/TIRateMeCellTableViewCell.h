@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *noButton;
 @property (weak, nonatomic) IBOutlet UILabel *questionLabel;
 
-@property (weak) id<TIRateMeDelegate> delegate;
+@property NSURL* appstoreURL;
+@property (weak) id delegate;
 
 @end

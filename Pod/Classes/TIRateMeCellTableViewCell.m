@@ -12,7 +12,7 @@
 typedef enum {
     TIRateMeCellStageLike = 1,
     TIRateMeCellStageAppStore = 2,
-    TIRateMeCellStageReview = 3,
+    TIRateMeCellStageFeedback = 3,
 } TIRateMeCellStage;
 
 NSString* UD_STAGE_KEY = @"TIRateMeCellStage";
@@ -56,7 +56,7 @@ NSString* UD_STAGE_KEY = @"TIRateMeCellStage";
         [self.noButton setTitle:[bundle localizedStringForKey:@"AppStore-No" value:@"" table:nil] forState:UIControlStateNormal];
         self.questionLabel.text = [bundle localizedStringForKey:@"AppStore-Question" value:@"" table:nil];
     }
-    if (stage == TIRateMeCellStageReview) {
+    if (stage == TIRateMeCellStageFeedback) {
         [self.yesButton setTitle:[bundle localizedStringForKey:@"Review-Yes" value:@"" table:nil] forState:UIControlStateNormal];
         [self.noButton setTitle:[bundle localizedStringForKey:@"Review-No" value:@"" table:nil] forState:UIControlStateNormal];
         self.questionLabel.text = [bundle localizedStringForKey:@"Review-Question" value:@"" table:nil];
@@ -64,19 +64,32 @@ NSString* UD_STAGE_KEY = @"TIRateMeCellStage";
 }
 
 - (void) yesButtonTap {
-    if (self.getStage == TIRateMeCellStageLike) {
+    TIRateMeCellStage stage = self.getStage;
+    if (stage == TIRateMeCellStageLike) {
         [self setUpStage:TIRateMeCellStageAppStore];
+    } else {
+        if (stage == TIRateMeCellStageAppStore) {
+            [self sendToAppstore];
+        }
+        if (stage == TIRateMeCellStageFeedback) {
+//            [self presentMail]
+        }
+        [self.delegate finished];
+    }
+}
+
+
+- (void) noButtonTap {
+    if (self.getStage == TIRateMeCellStageLike) {
+        [self setUpStage:TIRateMeCellStageFeedback];
     } else {
         [self.delegate finished];
     }
 }
 
-- (void) noButtonTap {
-    if (self.getStage == TIRateMeCellStageLike) {
-        [self setUpStage:TIRateMeCellStageReview];
-    } else {
-        [self.delegate finished];
-    }
+#pragma mark Should move to some kind of delegate
+- (void) sendToAppstore {
+    [[UIApplication sharedApplication] openURL:self.appstoreURL];
 }
 
 @end

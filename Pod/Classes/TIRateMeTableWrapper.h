@@ -17,6 +17,10 @@
 @property (weak, readonly) id<UITableViewDataSource> wrappedDataSource;
 @property (weak, readonly) id<UITableViewDelegate> wrappedDelegate;
 
+@property NSURL* appstoreURL;
+@property NSString* feedbackEmail;
+@property NSString* subject;
+
 - (TIRateMeTableWrapper*) initWithDataSource:(id<UITableViewDataSource>) dataSource
                       tableDelegate:(id<UITableViewDelegate>) delegate
                          shouldShow:(bool (^)(void))shouldShow;
