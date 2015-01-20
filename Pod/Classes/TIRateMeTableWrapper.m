@@ -8,6 +8,7 @@
 
 #import "TIRateMeTableWrapper.h"
 #import "TIRateMeCellTableViewCell.h"
+#import "TIAnalytics.h"
 
 @implementation TIRateMeTableWrapper
 
@@ -33,11 +34,6 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
     return (shown != nil || shouldShow()) && finished == nil;
 }
 
-#pragma mark TIRateMeDelegate
-- (void) finished {
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:1] forKey:UD_FINISHED_KEY];
-}
-
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -50,8 +46,11 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!self.show || indexPath.row != DIALOGROW) {
+    if (!self.show || indexPath.row < DIALOGROW) {
         return [self.wrappedDataSource tableView:tableView cellForRowAtIndexPath:indexPath];
+    } else if (indexPath.row > DIALOGROW) {
+        NSIndexPath* offsetPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
+        return [self.wrappedDataSource tableView:tableView cellForRowAtIndexPath:offsetPath];
     } else {
         NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"TIRateMe" ofType:@"bundle"];
         NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
@@ -59,8 +58,11 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
         TIRateMeCellTableViewCell* cell = [topLevelObjects objectAtIndex:0];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
-        cell.appstoreURL = self.appstoreURL;
 
+        NSObject* shown = [[NSUserDefaults standardUserDefaults] objectForKey:UD_SHOWN_KEY];
+        if (shown == nil) {
+            [TIAnalytics.shared trackEvent:@"RATEME-CELL_SHOWN_FIRST"];
+        }
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:1] forKey:UD_SHOWN_KEY];
         
         return cell;
@@ -84,7 +86,26 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
         NSIndexPath* offsetPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
         [self.wrappedDelegate tableView:tableView didSelectRowAtIndexPath:offsetPath];
     } else {
-        //do nothing for rate me row
+        //do nothing for rate me cell
     }
+}
+
+#pragma mark TIRateMeDelegate
+- (void) finished {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:1] forKey:UD_FINISHED_KEY];
+    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:DIALOGROW inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+    [self.tableView reloadData];
+}
+
+- (void) animateTransition {
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:DIALOGROW inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+}
+
+- (void) sendToAppstore {
+    [[UIApplication sharedApplication] openURL:self.appstoreURL];
+}
+
+- (void) askFeedback  {
+    [self.feedbackObject askFeedbackWithVC:self.presentingVC doneCallback:nil];
 }
 @end

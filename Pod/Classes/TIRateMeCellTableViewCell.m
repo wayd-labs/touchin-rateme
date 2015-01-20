@@ -6,6 +6,8 @@
 //
 //
 #import "TIRateMeCellTableViewCell.h"
+#import <HexColor.h>
+#import "TIAnalytics.h"
 
 @implementation TIRateMeCellTableViewCell
 
@@ -17,10 +19,27 @@ typedef enum {
 
 NSString* UD_STAGE_KEY = @"TIRateMeCellStage";
 
+- (void) makeRoundCorneredFrame: (CALayer*) layer {
+    layer.cornerRadius = 5;
+    layer.borderWidth = 1;
+    layer.borderColor = [UIColor whiteColor].CGColor;
+}
+
 - (void)awakeFromNib {
     [self.yesButton addTarget:self action:@selector(yesButtonTap) forControlEvents:UIControlEventTouchUpInside];
     [self.noButton addTarget:self action:@selector(noButtonTap) forControlEvents:UIControlEventTouchUpInside];
+
+    //todo move colors to properties sometime
+    [self setBackgroundColor:[UIColor colorWithHexString:@"00c9a8" alpha:1]];
+    [self makeRoundCorneredFrame:self.yesButton.layer];
+    [self makeRoundCorneredFrame:self.noButton.layer];
+    self.yesButton.tintColor = [UIColor whiteColor];
+    self.noButton.tintColor = [UIColor whiteColor];
+    self.questionLabel.textColor = [UIColor whiteColor];
+    
     [self setUpStage:[self getStage]];
+    
+    [TIAnalytics.shared trackEvent:@"RATEME-CELL_STAGE_SHOWN" properties:@{@"stage": self.getStageName}];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -38,12 +57,24 @@ NSString* UD_STAGE_KEY = @"TIRateMeCellStage";
     }
 }
 
+- (NSString*) getStageName {
+    TIRateMeCellStage stage = self.getStage;
+    if (stage == TIRateMeCellStageLike) {
+        return @"LIKE";
+    }
+    if (stage == TIRateMeCellStageAppStore) {
+        return @"APPSTORE";
+    }
+    if (stage == TIRateMeCellStageFeedback) {
+        return @"FEEDBACK";
+    }
+}
+
 - (void) setStage:(TIRateMeCellStage) stage {
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:stage] forKey:UD_STAGE_KEY];
 }
 
 - (void) setUpStage:(TIRateMeCellStage) stage {
-    [self setStage:stage];
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"TIRateMe" ofType:@"bundle"];
     NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
     if (stage == TIRateMeCellStageLike) {
@@ -57,39 +88,46 @@ NSString* UD_STAGE_KEY = @"TIRateMeCellStage";
         self.questionLabel.text = [bundle localizedStringForKey:@"AppStore-Question" value:@"" table:nil];
     }
     if (stage == TIRateMeCellStageFeedback) {
-        [self.yesButton setTitle:[bundle localizedStringForKey:@"Review-Yes" value:@"" table:nil] forState:UIControlStateNormal];
-        [self.noButton setTitle:[bundle localizedStringForKey:@"Review-No" value:@"" table:nil] forState:UIControlStateNormal];
-        self.questionLabel.text = [bundle localizedStringForKey:@"Review-Question" value:@"" table:nil];
+        [self.yesButton setTitle:[bundle localizedStringForKey:@"Feedback-Yes" value:@"" table:nil] forState:UIControlStateNormal];
+        [self.noButton setTitle:[bundle localizedStringForKey:@"Feedback-No" value:@"" table:nil] forState:UIControlStateNormal];
+        self.questionLabel.text = [bundle localizedStringForKey:@"Feedback-Question" value:@"" table:nil];
     }
 }
 
 - (void) yesButtonTap {
     TIRateMeCellStage stage = self.getStage;
     if (stage == TIRateMeCellStageLike) {
-        [self setUpStage:TIRateMeCellStageAppStore];
+        [TIAnalytics.shared trackEvent:@"RATEME-CELL_LIKE_ANSWERED" properties:@{@"answer": @"YES"}];
+        [self setStage:TIRateMeCellStageAppStore];
+        [self.delegate animateTransition];
     } else {
         if (stage == TIRateMeCellStageAppStore) {
-            [self sendToAppstore];
+            [TIAnalytics.shared trackEvent:@"RATEME-CELL_APPSTORE_ANSWERED" properties:@{@"answer": @"YES"}];
+            [self.delegate sendToAppstore];
         }
         if (stage == TIRateMeCellStageFeedback) {
-//            [self presentMail]
+            [TIAnalytics.shared trackEvent:@"RATEME-CELL_FEEDBACK_ANSWERED" properties:@{@"answer": @"YES"}];
+            [self.delegate askFeedback];
         }
         [self.delegate finished];
     }
 }
-
 
 - (void) noButtonTap {
     if (self.getStage == TIRateMeCellStageLike) {
-        [self setUpStage:TIRateMeCellStageFeedback];
+        [TIAnalytics.shared trackEvent:@"RATEME-CELL_LIKE_ANSWERED" properties:@{@"answer": @"NO"}];
+        [self setStage:TIRateMeCellStageFeedback];
+        [self.delegate animateTransition];
     } else {
+        if (self.getStage == TIRateMeCellStageAppStore) {
+            [TIAnalytics.shared trackEvent:@"RATEME-CELL_APPSTORE_ANSWERED" properties:@{@"answer": @"NO"}];
+        }
+        if (self.getStage == TIRateMeCellStageFeedback) {
+            [TIAnalytics.shared trackEvent:@"RATEME-CELL_FEEDBACK_ANSWERED" properties:@{@"answer": @"NO"}];
+        }
+        
         [self.delegate finished];
     }
-}
-
-#pragma mark Should move to some kind of delegate
-- (void) sendToAppstore {
-    [[UIApplication sharedApplication] openURL:self.appstoreURL];
 }
 
 @end

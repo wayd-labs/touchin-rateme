@@ -35,5 +35,5 @@ Pod::Spec.new do |s|
   }
 
   s.frameworks = 'UIKit'
-#  s.dependency 'FlurrySDK'
+  s.dependency 'HexColors', '~> 2.2.1'
 end

@@ -14,39 +14,39 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nG5-86-MwH" id="zch-A9-ahI">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Do you like our app?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zGe-q3-TtT">
-                        <rect key="frame" x="8" y="9" width="304" height="43"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you like our app?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zGe-q3-TtT">
+                        <rect key="frame" x="8" y="12" width="304" height="31"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ZO-VZ-QwQ">
-                        <rect key="frame" x="0.0" y="52" width="160" height="43"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ZO-VZ-QwQ">
+                        <rect key="frame" x="16" y="51" width="137" height="31"/>
                         <state key="normal" title="Yes">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cgr-cl-pba">
-                        <rect key="frame" x="160" y="52" width="160" height="43"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cgr-cl-pba">
+                        <rect key="frame" x="168" y="51" width="136" height="31"/>
                         <state key="normal" title="No">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="0ZO-VZ-QwQ" firstAttribute="leading" secondItem="zch-A9-ahI" secondAttribute="leadingMargin" constant="-8" id="91a-pI-Pbw"/>
+                    <constraint firstItem="0ZO-VZ-QwQ" firstAttribute="leading" secondItem="zch-A9-ahI" secondAttribute="leadingMargin" constant="8" id="91a-pI-Pbw"/>
                     <constraint firstItem="zGe-q3-TtT" firstAttribute="height" secondItem="0ZO-VZ-QwQ" secondAttribute="height" id="999-fL-bCF"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="0ZO-VZ-QwQ" secondAttribute="bottom" constant="-8" id="P5q-rk-cTn"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="0ZO-VZ-QwQ" secondAttribute="bottom" constant="4" id="P5q-rk-cTn"/>
                     <constraint firstAttribute="bottomMargin" secondItem="0ZO-VZ-QwQ" secondAttribute="bottom" id="WvW-Br-4Ya"/>
                     <constraint firstItem="zGe-q3-TtT" firstAttribute="height" secondItem="Cgr-cl-pba" secondAttribute="height" id="bOB-VQ-LvV"/>
                     <constraint firstItem="0ZO-VZ-QwQ" firstAttribute="width" secondItem="Cgr-cl-pba" secondAttribute="width" id="c9O-Wc-fhI"/>
                     <constraint firstItem="zGe-q3-TtT" firstAttribute="leading" secondItem="zch-A9-ahI" secondAttribute="leadingMargin" id="hUg-97-sKd"/>
-                    <constraint firstItem="0ZO-VZ-QwQ" firstAttribute="top" secondItem="zGe-q3-TtT" secondAttribute="bottom" id="mle-hg-Cl2"/>
-                    <constraint firstItem="zGe-q3-TtT" firstAttribute="top" secondItem="zch-A9-ahI" secondAttribute="topMargin" id="nDH-zw-j8C"/>
+                    <constraint firstItem="0ZO-VZ-QwQ" firstAttribute="top" secondItem="zGe-q3-TtT" secondAttribute="bottom" constant="8" id="mle-hg-Cl2"/>
+                    <constraint firstItem="zGe-q3-TtT" firstAttribute="top" secondItem="zch-A9-ahI" secondAttribute="topMargin" constant="4" id="nDH-zw-j8C"/>
                     <constraint firstItem="0ZO-VZ-QwQ" firstAttribute="centerY" secondItem="Cgr-cl-pba" secondAttribute="centerY" id="o9J-UL-WV7"/>
                     <constraint firstAttribute="trailingMargin" secondItem="zGe-q3-TtT" secondAttribute="trailing" id="pHS-WW-bf1"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="Cgr-cl-pba" secondAttribute="trailing" constant="-8" id="vPc-eR-TZb"/>
-                    <constraint firstItem="Cgr-cl-pba" firstAttribute="leading" secondItem="0ZO-VZ-QwQ" secondAttribute="trailing" id="zvP-05-4qA"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Cgr-cl-pba" secondAttribute="trailing" constant="8" id="vPc-eR-TZb"/>
+                    <constraint firstItem="Cgr-cl-pba" firstAttribute="leading" secondItem="0ZO-VZ-QwQ" secondAttribute="trailing" constant="15" id="zvP-05-4qA"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">

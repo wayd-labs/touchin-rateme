@@ -7,9 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TIEmailFeedback.h"
 
 @protocol TIRateMeDelegate
 - (void) finished;
+- (void) sendToAppstore;
+- (void) askFeedback;
+- (void) animateTransition;
 @end
 
 @interface TIRateMeTableWrapper : NSObject<UITableViewDataSource, UITableViewDelegate, TIRateMeDelegate>
@@ -17,9 +21,10 @@
 @property (weak, readonly) id<UITableViewDataSource> wrappedDataSource;
 @property (weak, readonly) id<UITableViewDelegate> wrappedDelegate;
 
+@property TIEmailFeedback* feedbackObject;
+@property (weak) UIViewController* presentingVC;
+@property (weak) UITableView* tableView;
 @property NSURL* appstoreURL;
-@property NSString* feedbackEmail;
-@property NSString* subject;
 
 - (TIRateMeTableWrapper*) initWithDataSource:(id<UITableViewDataSource>) dataSource
                       tableDelegate:(id<UITableViewDelegate>) delegate
