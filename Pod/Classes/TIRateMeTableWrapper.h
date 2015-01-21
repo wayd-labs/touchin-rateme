@@ -21,6 +21,7 @@
 @property (weak, readonly) id<UITableViewDataSource> wrappedDataSource;
 @property (weak, readonly) id<UITableViewDelegate> wrappedDelegate;
 
+@property NSUInteger dialogRow;
 @property TIEmailFeedback* feedbackObject;
 @property (weak) UIViewController* presentingVC;
 @property (weak) UITableView* tableView;

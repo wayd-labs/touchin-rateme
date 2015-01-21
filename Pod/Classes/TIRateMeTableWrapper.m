@@ -12,7 +12,6 @@
 
 @implementation TIRateMeTableWrapper
 
-int DIALOGROW = 1;
 bool (^shouldShow)(void);
 NSString* UD_SHOWN_KEY = @"TIRateMeShown";
 NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
@@ -25,6 +24,7 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
     _wrappedDataSource = dataSource;
     _wrappedDelegate = delegate;
     shouldShow = shouldShowParam;
+    self.dialogRow = 1;
     return self;
 }
 
@@ -38,7 +38,7 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSInteger baseCount = [self.wrappedDataSource tableView:tableView numberOfRowsInSection:section];
-    if (self.show && (baseCount > DIALOGROW)) {
+    if (self.show && (baseCount > self.dialogRow)) {
         baseCount++;
     }
     return baseCount;
@@ -46,9 +46,9 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!self.show || indexPath.row < DIALOGROW) {
+    if (!self.show || indexPath.row < self.dialogRow) {
         return [self.wrappedDataSource tableView:tableView cellForRowAtIndexPath:indexPath];
-    } else if (indexPath.row > DIALOGROW) {
+    } else if (indexPath.row > self.dialogRow) {
         NSIndexPath* offsetPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
         return [self.wrappedDataSource tableView:tableView cellForRowAtIndexPath:offsetPath];
     } else {
@@ -72,7 +72,7 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!self.show || indexPath.row != DIALOGROW) {
+    if (!self.show || indexPath.row != self.dialogRow) {
         return [self.wrappedDelegate tableView:tableView heightForRowAtIndexPath:indexPath];
     } else {
         return 95.0;
@@ -80,10 +80,11 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!self.show || indexPath.row < DIALOGROW) {
+    if (!self.show || indexPath.row < self.dialogRow) {
         [self.wrappedDelegate tableView:tableView didSelectRowAtIndexPath:indexPath];
-    } else if (indexPath.row > DIALOGROW) {
+    } else if (indexPath.row > self.dialogRow) {
         NSIndexPath* offsetPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
+        [self.tableView selectRowAtIndexPath:offsetPath animated:NO scrollPosition:UITableViewRowAnimationNone];
         [self.wrappedDelegate tableView:tableView didSelectRowAtIndexPath:offsetPath];
     } else {
         //do nothing for rate me cell
@@ -93,12 +94,12 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
 #pragma mark TIRateMeDelegate
 - (void) finished {
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:1] forKey:UD_FINISHED_KEY];
-    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:DIALOGROW inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dialogRow inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
     [self.tableView reloadData];
 }
 
 - (void) animateTransition {
-    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:DIALOGROW inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dialogRow inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
 }
 
 - (void) sendToAppstore {
