@@ -22,6 +22,7 @@
 @property (weak, readonly) id<UITableViewDelegate> wrappedDelegate;
 
 @property NSUInteger dialogRow;
+@property NSUInteger dialogSection;
 @property TIEmailFeedback* feedbackObject;
 @property (weak) UIViewController* presentingVC;
 @property (weak) UITableView* tableView;
@@ -30,5 +31,7 @@
 - (TIRateMeTableWrapper*) initWithDataSource:(id<UITableViewDataSource>) dataSource
                       tableDelegate:(id<UITableViewDelegate>) delegate
                          shouldShow:(bool (^)(void))shouldShow;
+
+- (NSIndexPath *) adjustIndexPath:(NSIndexPath *) indexPath;
 
 @end

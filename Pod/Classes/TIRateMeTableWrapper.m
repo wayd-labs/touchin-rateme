@@ -25,6 +25,7 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
     _wrappedDelegate = delegate;
     shouldShow = shouldShowParam;
     self.dialogRow = 1;
+    self.dialogSection = 0;
     return self;
 }
 
@@ -34,11 +35,44 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
     return (shown != nil || shouldShow()) && finished == nil;
 }
 
+//Adjust indexPath for manipulating of table cell directrly in UITableViewController (bad decision)
+- (NSIndexPath *) adjustIndexPath:(NSIndexPath *) indexPath {
+   if (!self.show || indexPath.section != self.dialogSection || indexPath.row < self.dialogRow) {
+       return indexPath;
+   } else if (indexPath.row >= self.dialogRow) {
+       return [NSIndexPath indexPathForRow:indexPath.row + 1 inSection:indexPath.section];
+   } else {
+       //our rateme cell
+       return nil;
+   }
+}
+
+//Adjust indexPath for forward methods to delegate and datasource
+- (NSIndexPath *) getForwardIndexPath:(NSIndexPath *) indexPath {
+    if (!self.show || indexPath.section != self.dialogSection || indexPath.row < self.dialogRow) {
+        return indexPath;
+    } else if (indexPath.row >= self.dialogRow) {
+        return [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
+    } else {
+        //our rateme cell
+        return nil;
+    }
+}
+
+
 #pragma mark UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if ([self.wrappedDataSource respondsToSelector:@selector(numberOfSectionsInTableView:)]) {
+        return [self.wrappedDataSource numberOfSectionsInTableView:tableView];
+    } else {
+        return 1;
+    }
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSInteger baseCount = [self.wrappedDataSource tableView:tableView numberOfRowsInSection:section];
-    if (self.show && (baseCount > self.dialogRow)) {
+    if (self.show && (section == self.dialogSection) && (baseCount > self.dialogRow)) {
         baseCount++;
     }
     return baseCount;
@@ -46,11 +80,11 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!self.show || indexPath.row < self.dialogRow) {
+    if (!self.show || indexPath.section != self.dialogSection || indexPath.row < self.dialogRow) {
         return [self.wrappedDataSource tableView:tableView cellForRowAtIndexPath:indexPath];
     } else if (indexPath.row > self.dialogRow) {
-        NSIndexPath* offsetPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
-        return [self.wrappedDataSource tableView:tableView cellForRowAtIndexPath:offsetPath];
+        return [self.wrappedDataSource tableView:tableView
+                           cellForRowAtIndexPath:[self getForwardIndexPath:indexPath]];
     } else {
         NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"TIRateMe" ofType:@"bundle"];
         NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
@@ -72,7 +106,7 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!self.show || indexPath.row != self.dialogRow) {
+    if (!self.show || indexPath.section != self.dialogSection || indexPath.row != self.dialogRow) {
         return [self.wrappedDelegate tableView:tableView heightForRowAtIndexPath:indexPath];
     } else {
         return 95.0;
@@ -80,26 +114,37 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!self.show || indexPath.row < self.dialogRow) {
+    if (!self.show || indexPath.section != self.dialogSection || indexPath.row < self.dialogRow) {
         [self.wrappedDelegate tableView:tableView didSelectRowAtIndexPath:indexPath];
     } else if (indexPath.row > self.dialogRow) {
-        NSIndexPath* offsetPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
-        [self.tableView selectRowAtIndexPath:offsetPath animated:NO scrollPosition:UITableViewRowAnimationNone];
-        [self.wrappedDelegate tableView:tableView didSelectRowAtIndexPath:offsetPath];
+        [self.tableView selectRowAtIndexPath:[self getForwardIndexPath:indexPath] animated:NO scrollPosition:UITableViewScrollPositionNone];
+        [self.wrappedDelegate tableView:tableView didSelectRowAtIndexPath:[self getForwardIndexPath:indexPath]];
     } else {
         //do nothing for rate me cell
+    }
+}
+
+- (void) tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.wrappedDelegate respondsToSelector:@selector(tableView: didHighlightRowAtIndexPath:)]) {
+        [self.wrappedDelegate tableView:tableView didHighlightRowAtIndexPath:[self getForwardIndexPath:indexPath]];
+    }
+}
+
+- (void) tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.wrappedDelegate respondsToSelector:@selector(tableView: didUnhighlightRowAtIndexPath:)]) {
+        [self.wrappedDelegate tableView:tableView didUnhighlightRowAtIndexPath:[self getForwardIndexPath:indexPath]];
     }
 }
 
 #pragma mark TIRateMeDelegate
 - (void) finished {
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:1] forKey:UD_FINISHED_KEY];
-    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dialogRow inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dialogRow inSection:self.dialogSection]] withRowAnimation:UITableViewRowAnimationLeft];
     [self.tableView reloadData];
 }
 
 - (void) animateTransition {
-    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dialogRow inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dialogRow inSection:self.dialogSection]] withRowAnimation:UITableViewRowAnimationLeft];
 }
 
 - (void) sendToAppstore {

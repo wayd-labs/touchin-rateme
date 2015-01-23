@@ -68,6 +68,7 @@ NSString* UD_STAGE_KEY = @"TIRateMeCellStage";
     if (stage == TIRateMeCellStageFeedback) {
         return @"FEEDBACK";
     }
+    return nil;
 }
 
 - (void) setStage:(TIRateMeCellStage) stage {
