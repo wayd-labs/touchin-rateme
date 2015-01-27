@@ -2,6 +2,12 @@
 TouchIn-RateMe
 =========
 Rate Me library for iOS apps helps you to push users to Rate your app in AppStore or to give you valuable feedback.
+Original Idea: https://medium.com/circa/the-right-way-to-ask-users-to-review-your-app-9a32fd604fca
+
+
+Install
+=========
+pod 'touchin-rateme', :git => 'https://github.com/TouchInstinct/touchin-rateme'
 
 
 TIRateMeTableWrapper
