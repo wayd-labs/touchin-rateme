@@ -16,6 +16,7 @@ TIRateMeTableWrapper
 
 ![](https://pbs.twimg.com/media/B3kHdVfCcAA1E_v.jpg)
 
+```objectivec
     self.tableDataSource = [PodcastTableDataSource new];
     ratemeWrapper = [[TIRateMeTableWrapper alloc] initWithDataSource:self.tableDataSource tableDelegate:self
         shouldShow:^bool{ //show rate me cell only if true
@@ -31,12 +32,14 @@ TIRateMeTableWrapper
     //accurately wraps original datasource and wrapper
     self.tableView.dataSource = ratemeWrapper;
     self.tableView.delegate = ratemeWrapper;
-
+```
 
 
 TIEmailFeedback
 =========
 Show MFMailComposeViewController with some useful info about app and device
 
+```objectivec
     TIEmailFeedback *feedback = [[TIEmailFeedback alloc] initWithEmail:@"followme@touchin.ru"];
     [feedback askFeedbackWithVC:self doneCallback:nil];
+```
