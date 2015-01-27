@@ -14,6 +14,8 @@ pod 'touchin-rateme', :git => 'https://github.com/TouchInstinct/touchin-rateme'
 TIRateMeTableWrapper
 =========
 
+![](https://pbs.twimg.com/media/B3kHdVfCcAA1E_v.jpg)
+
     self.tableDataSource = [PodcastTableDataSource new];
     ratemeWrapper = [[TIRateMeTableWrapper alloc] initWithDataSource:self.tableDataSource tableDelegate:self
         shouldShow:^bool{ //show rate me cell only if true
