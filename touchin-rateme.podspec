@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "touchin-rateme"
-  s.version          = "0.2"
+  s.version          = "0.3.1"
   s.summary          = "A short description of touchin-analytics."
   s.description      = <<-DESC
                        An optional longer description of touchin-analytics
@@ -31,9 +31,10 @@ Pod::Spec.new do |s|
   s.source_files = 'Pod/Classes'
 #  s.resources = 'Pod/Assets'
   s.resource_bundles = {
-    'TIRateMe' => ['Pod/Assets/TIRateMeCell.xib', 'Pod/Assets/*.lproj/*']
+    'TIRateMe' => ['Pod/Assets/TIRateMeCell.xib', 'Pod/Assets/*.lproj']
   }
 
   s.frameworks = 'UIKit'
   s.dependency 'HexColors', '~> 2.2.1'
+  s.dependency 'Aspects'
 end

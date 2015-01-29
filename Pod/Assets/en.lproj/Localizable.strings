@@ -5,14 +5,14 @@
   Created by Толя Ларин on 09/01/15.
 
 */
-"Like-Question"="Тебе нравится приложение?";
-"Like-Yes"="О, да!";
-"Like-No"="Нет";
+"Like-Question"="Do you like our app?";
+"Like-Yes"="Yes";
+"Like-No"="No";
 
-"AppStore-Question"="Оставишь отзыв в AppStore?";
-"AppStore-Yes"="Без проблем";
-"AppStore-No"="Нет";
+"AppStore-Question"="Will you review us in AppStore, please?";
+"AppStore-Yes"="Yes, sure";
+"AppStore-No"="No, too lazy";
 
-"Feedback-Question"="Расскажешь почему?";
-"Feedback-Yes"="Да";
-"Feedback-No"="Нет";
+"Feedback-Question"="Would you mind telling us why, please?";
+"Feedback-Yes"="Yes, sure";
+"Feedback-No"="No, too lazy";

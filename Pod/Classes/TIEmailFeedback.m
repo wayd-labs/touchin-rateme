@@ -30,23 +30,34 @@ void (^doneCallback)(MFMailComposeResult);
     presentingVC = presentingVC_;
     doneCallback = doneCallback_;
     
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"TIRateMe" ofType:@"bundle"];
+    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
         controller.mailComposeDelegate = self;
         [controller setToRecipients:@[email]];
-        [controller setSubject:[NSString stringWithFormat:@"[%@] Пожелание или ошибка", TITrivia.appDisplayName]];
+        NSString* subject = [bundle localizedStringForKey:@"[%@] Feedback" value:@"" table:nil];
+        [controller setSubject:[NSString stringWithFormat:subject, TITrivia.appDisplayName]];
         [controller setMessageBody:self.getFooter isHTML:NO];
         [presentingVC presentViewController:controller animated:YES completion:nil];
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Почта не настроена"
-                                                        message:[NSString stringWithFormat:@"Отправьте нам письмо на %@", email]
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
+        NSString* title = [bundle localizedStringForKey:@"Mail account is not configured" value:@"" table:nil];
+        NSString* message = [NSString stringWithFormat:[bundle localizedStringForKey:@"Send us an email to %@" value:@"" table:nil], email];
+        
+        if([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] != NSOrderedAscending) {
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction * closeAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                [presentingVC dismissViewControllerAnimated:TRUE completion:nil];
+            }];
+            [alert addAction:closeAction];
+            [presentingVC presentViewController:alert animated:TRUE completion:nil];
+        }
+        else {
+            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
     }
 }
-
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller
           didFinishWithResult:(MFMailComposeResult)result

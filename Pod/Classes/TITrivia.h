@@ -14,5 +14,4 @@
 + (NSString *) appDisplayName;
 + (NSString *) iosVersion;
 + (NSString *) deviceModel;
-
 @end
