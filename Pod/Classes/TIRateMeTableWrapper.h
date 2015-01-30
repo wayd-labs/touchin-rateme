@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TIEmailFeedback.h"
+#import "TIAppearance.h"
 
 @protocol TIRateMeDelegate
 - (void) finished;
@@ -27,6 +28,8 @@
 @property (weak) UIViewController* presentingVC;
 @property (weak) UITableView* tableView;
 @property NSURL* appstoreURL;
+@property (strong, nonatomic) TIAppearance *appearance;
+
 
 - (TIRateMeTableWrapper*) initWithDataSource:(id<UITableViewDataSource>) dataSource
                       tableDelegate:(id<UITableViewDelegate>) delegate

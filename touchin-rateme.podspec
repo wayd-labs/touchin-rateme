@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "touchin-rateme"
-  s.version          = "0.3.1"
+  s.version          = "0.4.0"
   s.summary          = "A short description of touchin-analytics."
   s.description      = <<-DESC
                        An optional longer description of touchin-analytics
@@ -35,6 +35,4 @@ Pod::Spec.new do |s|
   }
 
   s.frameworks = 'UIKit'
-  s.dependency 'HexColors', '~> 2.2.1'
-  s.dependency 'Aspects'
 end

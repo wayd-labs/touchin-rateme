@@ -6,7 +6,6 @@
 //
 //
 #import "TIRateMeCellTableViewCell.h"
-#import <HexColor.h>
 #import "TIAnalytics.h"
 
 @implementation TIRateMeCellTableViewCell
@@ -22,7 +21,32 @@ NSString* UD_STAGE_KEY = @"TIRateMeCellStage";
 - (void) makeRoundCorneredFrame: (CALayer*) layer {
     layer.cornerRadius = 5;
     layer.borderWidth = 1;
-    layer.borderColor = [UIColor whiteColor].CGColor;
+    layer.borderColor = self.appearance.accentColor.CGColor;
+}
+
+- (void) setUpButton: (UIButton*) button {
+    [self makeRoundCorneredFrame:button.layer];
+//    [button setTintColor:[UIColor whiteColor]];
+    [button setTitleColor:self.appearance.accentColor forState:UIControlStateNormal];
+    [button setTitleColor:self.appearance.backgroundColor forState:UIControlStateHighlighted];
+    [button setTitleColor:self.appearance.backgroundColor forState:UIControlStateSelected];
+    
+    //for background change
+    [button addTarget:self action:@selector(buttonTouchDown:) forControlEvents:UIControlEventTouchDown];
+    [button addTarget:self action:@selector(buttonTouchUp:) forControlEvents:UIControlEventTouchUpOutside];
+    [button addTarget:self action:@selector(buttonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void) buttonTouchDown:(id)sender
+{
+    UIButton* button = sender;
+    [button setBackgroundColor:self.appearance.accentColor];
+}
+
+- (void) buttonTouchUp:(id)sender
+{
+    UIButton* button = sender;
+    [button setBackgroundColor:[UIColor colorWithWhite:0 alpha:0]];
 }
 
 - (void)awakeFromNib {
@@ -30,12 +54,11 @@ NSString* UD_STAGE_KEY = @"TIRateMeCellStage";
     [self.noButton addTarget:self action:@selector(noButtonTap) forControlEvents:UIControlEventTouchUpInside];
 
     //todo move colors to properties sometime
-    [self setBackgroundColor:[UIColor colorWithHexString:@"00c9a8" alpha:1]];
-    [self makeRoundCorneredFrame:self.yesButton.layer];
-    [self makeRoundCorneredFrame:self.noButton.layer];
-    self.yesButton.tintColor = [UIColor whiteColor];
-    self.noButton.tintColor = [UIColor whiteColor];
-    self.questionLabel.textColor = [UIColor whiteColor];
+    [self setBackgroundColor:self.appearance.backgroundColor];
+    self.questionLabel.textColor = self.appearance.accentColor;
+    
+    [self setUpButton:self.yesButton];
+    [self setUpButton:self.noButton];
     
     [self setUpStage:[self getStage]];
     

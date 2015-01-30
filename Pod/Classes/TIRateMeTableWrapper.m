@@ -73,6 +73,12 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
 {
     NSInteger baseCount = [self.wrappedDataSource tableView:tableView numberOfRowsInSection:section];
     if (self.show && (section == self.dialogSection) && (baseCount > self.dialogRow)) {
+        NSObject* shown = [[NSUserDefaults standardUserDefaults] objectForKey:UD_SHOWN_KEY];
+        if (shown == nil) {
+            [self.tableView beginUpdates];
+            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dialogRow inSection:self.dialogSection]] withRowAnimation:UITableViewRowAnimationRight];
+            [self.tableView endUpdates];
+        }
         baseCount++;
     }
     return baseCount;
@@ -91,6 +97,8 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
         NSArray *topLevelObjects = [bundle loadNibNamed:@"TIRateMeCell" owner:self options:nil];
         TIRateMeCellTableViewCell* cell = [topLevelObjects objectAtIndex:0];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.appearance = self.appearance? self.appearance : TIAppearance.mintApperance;
+        [cell awakeFromNib];
         cell.delegate = self;
 
         NSObject* shown = [[NSUserDefaults standardUserDefaults] objectForKey:UD_SHOWN_KEY];
@@ -106,9 +114,10 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!self.show || indexPath.section != self.dialogSection || indexPath.row != self.dialogRow) {
+    NSObject* shown = [[NSUserDefaults standardUserDefaults] objectForKey:UD_SHOWN_KEY];
+    if (!shown || !self.show || indexPath.section != self.dialogSection || indexPath.row != self.dialogRow) {
         return [self.wrappedDelegate tableView:tableView heightForRowAtIndexPath:indexPath];
-    } else {
+    } else {        
         return 95.0;
     }
 }
@@ -139,12 +148,16 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
 #pragma mark TIRateMeDelegate
 - (void) finished {
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:1] forKey:UD_FINISHED_KEY];
+    [self.tableView beginUpdates];
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dialogRow inSection:self.dialogSection]] withRowAnimation:UITableViewRowAnimationLeft];
     [self.tableView reloadData];
+    [self.tableView endUpdates];
 }
 
 - (void) animateTransition {
+    [self.tableView beginUpdates];
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dialogRow inSection:self.dialogSection]] withRowAnimation:UITableViewRowAnimationLeft];
+    [self.tableView endUpdates];
 }
 
 - (void) sendToAppstore {
