@@ -61,6 +61,21 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
 
 
 #pragma mark UITableViewDataSource
+
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if ([self.wrappedDelegate respondsToSelector:@selector(tableView:heightForHeaderInSection:)]) {
+        return [self.wrappedDelegate tableView:tableView heightForHeaderInSection:section];
+    }
+    return 0.0;
+}
+
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if ([self.wrappedDelegate respondsToSelector:@selector(tableView:viewForHeaderInSection:)]) {
+        return [self.wrappedDelegate tableView:tableView viewForHeaderInSection:section];
+    }
+    return nil;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if ([self.wrappedDataSource respondsToSelector:@selector(numberOfSectionsInTableView:)]) {
         return [self.wrappedDataSource numberOfSectionsInTableView:tableView];
