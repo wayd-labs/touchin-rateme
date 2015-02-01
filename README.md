@@ -22,13 +22,15 @@ TIRateMeTableWrapper
         shouldShow:^bool{ //show rate me cell only if true
             return true; 
     }];
-    ratemeWrapper.dialogSection = 0; //default 0;
-    ratemeWrapper.dialogRow = 1; //default 1
-    ratemeWrapper.feedbackObject = [[TIEmailFeedback alloc] initWithEmail:@"hello@wayd.me"];; //For sending email if user don't like the app
     ratemeWrapper.presentingVC = self; //for presenting MFMailCompose
     ratemeWrapper.tableView = self.tableView; //for updating rows
     //to redirect to appstore if user likes the app
     ratemeWrapper.appstoreURL = [NSURL URLWithString:@"https://itunes.apple.com/app/radio-follow-me/id898764827"]; 
+    //optional colors and position setup
+    ratemeWrapper.appearance = [TIAppearance apperanceWithBackgroundColor:[UIColor blackColor] accentColor:[UIColor whiteColor]];
+    ratemeWrapper.dialogSection = 0; //default 0;
+    ratemeWrapper.dialogRow = 1; //default 1
+
     //accurately wraps original datasource and wrapper
     self.tableView.dataSource = ratemeWrapper;
     self.tableView.delegate = ratemeWrapper;

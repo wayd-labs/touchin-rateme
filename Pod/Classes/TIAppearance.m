@@ -10,11 +10,11 @@
 
 @implementation TIAppearance
 
-+ (TIAppearance*) blackApperance {
++ (TIAppearance*) blackAppearance {
     return [self apperanceWithBackgroundColor:[UIColor blackColor] accentColor:[UIColor whiteColor]];
 }
 
-+ (TIAppearance*) mintApperance {
++ (TIAppearance*) mintAppearance {
     return [self apperanceWithBackgroundColor:[UIColor colorWithRed:0 green:0.788 blue:0.659 alpha:1.0] accentColor:[UIColor whiteColor]];
 }
 

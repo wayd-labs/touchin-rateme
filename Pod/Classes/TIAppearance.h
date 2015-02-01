@@ -12,8 +12,8 @@
 @interface TIAppearance : NSObject
 
 + (TIAppearance*) apperanceWithBackgroundColor:(UIColor*) background accentColor:(UIColor*) accent;
-+ (TIAppearance*) mintApperance;
-+ (TIAppearance*) blackApperance;
++ (TIAppearance*) mintAppearance;
++ (TIAppearance*) blackAppearance;
 
 @property (nonatomic, strong) UIColor *backgroundColor;
 @property (nonatomic, strong) UIColor *accentColor;

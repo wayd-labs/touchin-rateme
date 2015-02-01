@@ -88,14 +88,25 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
 {
     NSInteger baseCount = [self.wrappedDataSource tableView:tableView numberOfRowsInSection:section];
     if (self.show && (section == self.dialogSection) && (baseCount > self.dialogRow)) {
-        NSObject* shown = [[NSUserDefaults standardUserDefaults] objectForKey:UD_SHOWN_KEY];
-        if (shown == nil) {
-            [self.tableView beginUpdates];
-            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dialogRow inSection:self.dialogSection]] withRowAnimation:UITableViewRowAnimationRight];
-            [self.tableView endUpdates];
+        
+        @synchronized([NSUserDefaults standardUserDefaults]) {
+//            [self.tableView reloadData];
+            NSObject* shown = [[NSUserDefaults standardUserDefaults] objectForKey:UD_SHOWN_KEY];
+            NSLog(@"** Shown %@", shown);
+            if (shown == nil) {
+                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:1] forKey:UD_SHOWN_KEY];
+
+//                [self.tableView beginUpdates];
+//                NSLog(@"** Insert");
+//                [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dialogRow inSection:self.dialogSection]] withRowAnimation:UITableViewRowAnimationRight];
+//                [self.tableView endUpdates];
+                
+                [TIAnalytics.shared trackEvent:@"RATEME-CELL_SHOWN_FIRST"];
+            }
         }
         baseCount++;
     }
+    NSLog(@"** Basecount %ld in section %ld", (long)baseCount, (long) section);
     return baseCount;
 }
 
@@ -112,16 +123,10 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
         NSArray *topLevelObjects = [bundle loadNibNamed:@"TIRateMeCell" owner:self options:nil];
         TIRateMeCellTableViewCell* cell = [topLevelObjects objectAtIndex:0];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.appearance = self.appearance? self.appearance : TIAppearance.mintApperance;
+        cell.appearance = self.appearance? self.appearance : TIAppearance.mintAppearance;
         [cell awakeFromNib];
         cell.delegate = self;
 
-        NSObject* shown = [[NSUserDefaults standardUserDefaults] objectForKey:UD_SHOWN_KEY];
-        if (shown == nil) {
-            [TIAnalytics.shared trackEvent:@"RATEME-CELL_SHOWN_FIRST"];
-        }
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:1] forKey:UD_SHOWN_KEY];
-        
         return cell;
     }
 }
@@ -165,7 +170,6 @@ NSString* UD_FINISHED_KEY = @"TIRateMeFinished";
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:1] forKey:UD_FINISHED_KEY];
     [self.tableView beginUpdates];
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dialogRow inSection:self.dialogSection]] withRowAnimation:UITableViewRowAnimationLeft];
-    [self.tableView reloadData];
     [self.tableView endUpdates];
 }
 
