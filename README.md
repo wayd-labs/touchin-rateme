@@ -36,12 +36,3 @@ TIRateMeTableWrapper
     self.tableView.delegate = ratemeWrapper;
 ```
 
-
-TIEmailFeedback
-=========
-Show MFMailComposeViewController with some useful info about app and device
-
-```objectivec
-    TIEmailFeedback *feedback = [[TIEmailFeedback alloc] initWithEmail:@"followme@touchin.ru"];
-    [feedback askFeedbackWithVC:self doneCallback:nil];
-```
