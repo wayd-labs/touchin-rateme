@@ -33,8 +33,10 @@ NSString* UD_STAGE_KEY = @"TIRateMeCellStage";
     
     //for background change
     [button addTarget:self action:@selector(buttonTouchDown:) forControlEvents:UIControlEventTouchDown];
+    [button addTarget:self action:@selector(buttonTouchDown:) forControlEvents:UIControlEventTouchDragInside];
     [button addTarget:self action:@selector(buttonTouchUp:) forControlEvents:UIControlEventTouchUpOutside];
     [button addTarget:self action:@selector(buttonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(buttonTouchUp:) forControlEvents:UIControlEventTouchDragOutside];
 }
 
 - (void) buttonTouchDown:(id)sender
