@@ -7,6 +7,7 @@
 //
 #import "TIRateMeCellTableViewCell.h"
 #import "TIAnalytics.h"
+#import "UIImage+TIImageAdditions.h"
 
 @implementation TIRateMeCellTableViewCell
 
@@ -19,6 +20,7 @@ typedef enum {
 NSString* UD_STAGE_KEY = @"TIRateMeCellStage";
 
 - (void) makeRoundCorneredFrame: (CALayer*) layer {
+    layer.masksToBounds = TRUE;
     layer.cornerRadius = 5;
     layer.borderWidth = 1;
     layer.borderColor = self.appearance.accentColor.CGColor;
@@ -32,11 +34,13 @@ NSString* UD_STAGE_KEY = @"TIRateMeCellStage";
     [button setTitleColor:self.appearance.backgroundColor forState:UIControlStateSelected];
     
     //for background change
-    [button addTarget:self action:@selector(buttonTouchDown:) forControlEvents:UIControlEventTouchDown];
-    [button addTarget:self action:@selector(buttonTouchDown:) forControlEvents:UIControlEventTouchDragInside];
-    [button addTarget:self action:@selector(buttonTouchUp:) forControlEvents:UIControlEventTouchUpOutside];
-    [button addTarget:self action:@selector(buttonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
-    [button addTarget:self action:@selector(buttonTouchUp:) forControlEvents:UIControlEventTouchDragOutside];
+    [button setBackgroundImage:[[UIImage imageWithColor:self.appearance.accentColor size:CGSizeMake(1.0, 1.0)] resizableImageWithCapInsets:UIEdgeInsetsZero] forState:UIControlStateHighlighted];
+//    [button setBackgroundImage:[[UIImage imageWithColor:[UIColor colorWithWhite:0 alpha:0] size:CGSizeMake(1.0, 1.0)] resizableImageWithCapInsets:UIEdgeInsetsZero] forState:UIControlStateNormal];
+//    [button addTarget:self action:@selector(buttonTouchDown:) forControlEvents:UIControlEventTouchDown];
+//    [button addTarget:self action:@selector(buttonTouchDown:) forControlEvents:UIControlEventTouchDragInside];
+//    [button addTarget:self action:@selector(buttonTouchUp:) forControlEvents:UIControlEventTouchUpOutside];
+//    [button addTarget:self action:@selector(buttonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
+//    [button addTarget:self action:@selector(buttonTouchUp:) forControlEvents:UIControlEventTouchDragOutside];
 }
 
 - (void) buttonTouchDown:(id)sender
