@@ -124,7 +124,7 @@ NSString* UD_STAGE_KEY = @"TIRateMeStage";
 }
 
 - (void) noButtonTap {
-    if ([self getStage] == TIRateMeStageLike || [self getStage] == TIRateMeStageAppStore) {
+    if ([self getStage] == TIRateMeStageLike) {
         [self setStage:TIRateMeStageFeedback];
     }
     else {
