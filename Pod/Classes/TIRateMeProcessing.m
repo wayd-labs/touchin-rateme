@@ -112,16 +112,16 @@ NSString* UD_STAGE_KEY = @"TIRateMeStage";
 
 - (void) yesButtonTap {
     if ([self getStage] == TIRateMeStageLike) {
-        [TIAnalytics.shared trackEvent:@"RATEME-CELL_LIKE_ANSWERED" properties:@{@"answer": @"YES"}];
+        [TIAnalytics.shared trackEvent:@"RATEME_LIKE_ANSWERED" properties:@{@"answer": @"YES"}];
         [self setStage:TIRateMeStageAppStore];
     }
     else if ([self getStage] == TIRateMeStageAppStore) {
-        [TIAnalytics.shared trackEvent:@"RATEME-CELL_APPSTORE_ANSWERED" properties:@{@"answer": @"YES"}];
+        [TIAnalytics.shared trackEvent:@"RATEME_APPSTORE_ANSWERED" properties:@{@"answer": @"YES"}];
         [self sendToAppstore];
         [self finish:TRUE];
     }
     else if ([self getStage] == TIRateMeStageFeedback) {
-        [TIAnalytics.shared trackEvent:@"RATEME-CELL_FEEDBACK_ANSWERED" properties:@{@"answer": @"YES"}];
+        [TIAnalytics.shared trackEvent:@"RATEME_FEEDBACK_ANSWERED" properties:@{@"answer": @"YES"}];
         [self askFeedback];
         [self finish:TRUE];
     }
@@ -129,15 +129,15 @@ NSString* UD_STAGE_KEY = @"TIRateMeStage";
 
 - (void) noButtonTap {
     if ([self getStage] == TIRateMeStageLike) {
-        [TIAnalytics.shared trackEvent:@"RATEME-CELL_FEEDBACK_ANSWERED" properties:@{@"answer": @"NO"}];
+        [TIAnalytics.shared trackEvent:@"RATEME_FEEDBACK_ANSWERED" properties:@{@"answer": @"NO"}];
         [self setStage:TIRateMeStageFeedback];
     }
     else {
         if ([self getStage] == TIRateMeStageAppStore) {
-            [TIAnalytics.shared trackEvent:@"RATEME-CELL_APPSTORE_ANSWERED" properties:@{@"answer": @"NO"}];
+            [TIAnalytics.shared trackEvent:@"RATEME_APPSTORE_ANSWERED" properties:@{@"answer": @"NO"}];
         }
         else if ([self getStage] == TIRateMeStageFeedback) {
-            [TIAnalytics.shared trackEvent:@"RATEME-CELL_FEEDBACK_ANSWERED" properties:@{@"answer": @"NO"}];
+            [TIAnalytics.shared trackEvent:@"RATEME_FEEDBACK_ANSWERED" properties:@{@"answer": @"NO"}];
         }
         [self finish:FALSE];
     }
