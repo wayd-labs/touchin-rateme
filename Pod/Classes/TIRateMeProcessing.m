@@ -129,7 +129,7 @@ NSString* UD_STAGE_KEY = @"TIRateMeStage";
 
 - (void) noButtonTap {
     if ([self getStage] == TIRateMeStageLike) {
-        [TIAnalytics.shared trackEvent:@"RATEME_FEEDBACK_ANSWERED" properties:@{@"answer": @"NO"}];
+        [TIAnalytics.shared trackEvent:@"RATEME_LIKE_ANSWERED" properties:@{@"answer": @"NO"}];
         [self setStage:TIRateMeStageFeedback];
     }
     else {
