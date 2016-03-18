@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TIEmailFeedback.h"
-#import "TIAppearance.h"
-#import "TITableWrapper.h"
+#import "touchin_trivia/TIEmailFeedback.h"
+#import "touchin_trivia/TIAppearance.h"
+#import "touchin_trivia/TITableWrapper.h"
 
 @protocol TIRateMeDelegate
 - (void) finished;
