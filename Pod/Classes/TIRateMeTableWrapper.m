@@ -12,7 +12,7 @@
 @implementation TIRateMeTableWrapper
 
 - (UITableViewCell*) createServiceCell {
-    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"TIRateMe" ofType:@"bundle"];
+    NSString *bundlePath = [[NSBundle bundleForClass:[TIRateMeTableWrapper class]] pathForResource:@"TIRateMe" ofType:@"bundle"];
     NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
     NSArray *topLevelObjects = [bundle loadNibNamed:@"TIRateMeCell" owner:self options:nil];
     TIRateMeCellTableViewCell* cell = [topLevelObjects objectAtIndex:0];

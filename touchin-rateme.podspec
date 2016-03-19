@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "touchin-rateme"
-  s.version          = "0.6.0"
+  s.version          = "0.6.1"
   s.license          = 'MIT'
   s.author           = { "alarin" => "me@alarin.ru" }
   s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/touchin-analytics.git", :tag => s.version.to_s }

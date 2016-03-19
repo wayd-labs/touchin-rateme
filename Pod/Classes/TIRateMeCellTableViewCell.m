@@ -74,7 +74,7 @@
 }
 
 - (void) setupTexts {
-    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"TIRateMe" ofType:@"bundle"];
+    NSString *bundlePath = [[NSBundle bundleForClass:[TIRateMeCellTableViewCell class]] pathForResource:@"TIRateMe" ofType:@"bundle"];
     NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
     
     [self.rateMeProcessing setYesButtonTitle:[bundle localizedStringForKey:@"Like-Yes" value:@"" table:nil] forStage:TIRateMeStageLike];
