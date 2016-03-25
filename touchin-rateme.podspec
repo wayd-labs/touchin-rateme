@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
   s.name             = "touchin-rateme"
   s.summary = "RateMe please table cells, alers and screens"
   s.homepage = "https://github.com/wayd-labs/touchin-rateme.git"
-  s.version          = "0.6.1"
+  s.version          = "0.6.2"
   s.license          = 'MIT'
   s.author           = { "alarin" => "me@alarin.ru" }
   s.source           = { :git => "https://github.com/wayd-labs/touchin-rateme.git", :tag => s.version.to_s }

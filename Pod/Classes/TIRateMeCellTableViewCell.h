@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TIRateMeTableWrapper.h"
 #import <MessageUI/MFMailComposeViewController.h>
-#import "touchin_trivia/TIAppearance.h"
+#import "TIAppearance.h"
 
 @interface TIRateMeCellTableViewCell : UITableViewCell<MFMailComposeViewControllerDelegate>
 

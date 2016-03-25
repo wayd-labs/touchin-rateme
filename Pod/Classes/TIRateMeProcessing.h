@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "touchin_trivia/TIEmailFeedback.h"
+#import "TIEmailFeedback.h"
 
 typedef enum {
     TIRateMeStageLike = 1,
